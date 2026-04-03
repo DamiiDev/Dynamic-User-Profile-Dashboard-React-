@@ -1,0 +1,75 @@
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+
+body {
+  background-color: #f0f0f0;
+}
+
+.cardImage {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+
+.card-name, .card-role {
+  margin-bottom: 10px;
+}
+  
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 320px;
+  width: 90%;
+  margin: 5px auto;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.card-button {
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card-icons {
+  display: flex;
+  gap: 15px;
+  margin-top: 15px 0;
+}
+
+.card-icons a {
+  color: #007bff
+}
+
+@media (max-width: 500px) {
+  .card {
+    width: 90%;
+    padding: 15px;
+  }
+
+    .cardImage {
+        width: 100px;
+        height: 100px;
+    }
+
+    .card-name {
+        font-size: 1.2em;
+    }
+
+    .card-role {
+        font-size: 1em;
+    }
+
+    .card-button {
+        padding: 8px 16px;
+        font-size: 0.9em;
+    }
+}
