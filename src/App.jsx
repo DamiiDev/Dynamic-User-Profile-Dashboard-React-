@@ -4,7 +4,6 @@ import image1 from "./assets/profil.jpeg";
 import image2 from "./assets/dammie.jpeg";
 
 const App = () => {
-  // Initialize users state with data from localStorage or default users
   const [users, setUsers] = useState(() => {
     const savedUsers = localStorage.getItem("users");
     return savedUsers
@@ -14,11 +13,11 @@ const App = () => {
             id: 1,
             name: "Damilare Festus",
             role: "Frontend Developer",
-            bio: "I love building React App",
+            bio: "I love building React Apps",
             image: image1,
             github: "https://github.com/DamiiDev",
             twitter: "https://twitter.com/DamiiDev",
-            linkedln: "https://linkedin.com/in/damilare-festus",
+            linkedin: "https://linkedin.com/in/damilare-festus",
           },
           {
             id: 2,
@@ -28,198 +27,139 @@ const App = () => {
             image: image2,
             github: "https://github.com/DamiiDev",
             twitter: "https://twitter.com/DamiiDev",
-            linkedln: "https://linkedin.com/in/damilare-festus",
-          },
-          {
-            id: 3,
-            name: "John Doe",
-            role: "Full Stack Developer",
-            bio: "Passionate about coding and technology.",
-            image: image1,
-            github: "https://github.com/DamiiDev",
-            twitter: "https://twitter.com/DamiiDev",
-            linkedln: "https://linkedin.com/in/damilare-festus",
+            linkedin: "https://linkedin.com/in/damilare-festus",
           },
         ];
   });
 
-  // State for new user name and search query
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
   const [search, setSearch] = useState("");
 
-  // Function to add a new user
+  // ✅ Add user
   const addUser = () => {
-    if (name.trim() === "" || role.trim() === "" || bio.trim() === "") return;
+    if (!name.trim() || !role.trim() || !bio.trim()) return;
 
     const newUser = {
       id: Date.now(),
-      name: name,
-      role: role,
-      bio: bio,
+      name,
+      role,
+      bio,
       image: image1,
       github: "#",
       twitter: "#",
-      linkedln: "#",
+      linkedin: "#",
     };
-    setUsers([...users, newUser]);
+
+    setUsers((prev) => [...prev, newUser]);
+
     setName("");
     setRole("");
     setBio("");
   };
 
-  // Function to delete a user
+  // ✅ Delete user
   const onDelete = (id) => {
-    setUsers(users.filter((user) => user.id !== id));
+    setUsers((prev) => prev.filter((user) => user.id !== id));
   };
 
-  // Save users to localStorage whenever they change
+  // ✅ Save to localStorage
   useEffect(() => {
     localStorage.setItem("users", JSON.stringify(users));
   }, [users]);
 
-  // Fetch users from API on component mount
+  // ✅ Fetch only if no local data
   useEffect(() => {
     const savedUsers = localStorage.getItem("users");
-
     if (savedUsers) return;
+
     fetch("https://jsonplaceholder.typicode.com/users")
       .then((res) => res.json())
       .then((data) => {
         const fetchedUsers = data.map((user) => ({
-          id: user.id + 1000, // To avoid ID conflicts with existing users
+          id: user.id + 1000,
           name: user.name,
           role: "User",
-          bio: "This is a user from API.",
+          bio: "Fetched from API",
           image: image1,
           github: "#",
           twitter: "#",
-          linkedln: "#",
+          linkedin: "#",
         }));
+
         setUsers(fetchedUsers);
       })
-      .catch((error) => console.error("Error fetching users:", error));
+      .catch((err) => console.error(err));
   }, []);
 
+  // ✅ Filter users
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(search.toLowerCase()) ||
+      user.role.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
-    <div>
-      <div style={{ textAlign: "center", margin: "20px 0px" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            flexWrap: "wrap",
-            gap: "10px",
-          }}
-        >
-          <input
-            type="text"
-            placeholder="Search users"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            style={{
-              padding: "10px",
-              maxWidth: "200px",
-              width: "100%",
-              marginRight: "10px",
-            }}
-          />
-        </div>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: "20px",
-            flexWrap: "wrap",
-            gap: "10px",
-          }}
-        >
-          <div>
-            <input
-              type="text"
-              placeholder="Enter name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              style={{
-                padding: "10px",
-                maxWidth: "200px",
-                width: "100%",
-                marginRight: "10px",
-              }}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Enter role"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              style={{
-                padding: "10px",
-                maxWidth: "200px",
-                width: "100%",
-                marginRight: "10px",
-              }}
-            />
-          </div>
-          <div>
-            <input
-              type="text"
-              placeholder="Enter bio"
-              value={bio}
-              onChange={(e) => setBio(e.target.value)}
-              style={{
-                padding: "10px",
-                maxWidth: "200px",
-                width: "100%",
-                marginRight: "10px",
-              }}
-            />
-          </div>
-          <button
-            onClick={addUser}
-            style={{
-              padding: "10px 20px",
-              background: "green",
-              color: "white",
-              border: "none",
-              cursor: "pointer",
-            }}
-          >
-            Add User
-          </button>
-        </div>
+    <div className="container">
+      <h1>User Dashboard</h1>
+
+      {/* 🔍 Search */}
+      <input
+        type="text"
+        placeholder="Search users..."
+        value={search}
+        onChange={(e) => setSearch(e.target.value)}
+        className="input"
+      />
+
+      {/* ➕ Add User */}
+      <div className="form">
+        <input
+          type="text"
+          placeholder="Name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          className="input"
+        />
+        <input
+          type="text"
+          placeholder="Role"
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="input"
+        />
+        <input
+          type="text"
+          placeholder="Bio"
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+          className="input"
+        />
+        <button onClick={addUser} className="add-btn">
+          Add User
+        </button>
       </div>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          flexWrap: "wrap",
-          gap: "20px",
-          padding: "10px",
-        }}
-      >
-        {users
-          .filter(
-            (user) =>
-              user.name.toLowerCase().includes(search.toLowerCase()) ||
-              user.role.toLowerCase().includes(search.toLowerCase()),
-          )
-          .map((user) => (
+
+      {/* 👥 Users */}
+      <div className="grid">
+        {filteredUsers.length > 0 ? (
+          filteredUsers.map((user) => (
             <Card
               key={user.id}
               name={user.name}
               role={user.role}
               bio={user.bio}
               image={user.image}
-              twitter={user.twitter}
-              linkedln={user.linkedln}
               github={user.github}
+              twitter={user.twitter}
+              linkedin={user.linkedin} 
               onDelete={() => onDelete(user.id)}
             />
-          ))}
+          ))
+        ) : (
+          <p>No users found</p>
+        )}
       </div>
     </div>
   );

@@ -13,15 +13,18 @@ const Card = ({
   onDelete,
 }) => {
   const [isFollowing, setIsFollowing] = useState(false);
+
+
   const handleFollow = () => {
-    setIsFollowing(!isFollowing);
+    setIsFollowing((prev) => !prev);
   };
+
   return (
     <div className="card">
       <img src={image} alt="profile-image" className="cardImage" />
       <h2 className="card-name">{name}</h2>
       <p className="card-role">{role}</p>
-      <p>{bio}</p>
+      <p className="card-bio">{bio}</p>
 
       <div className="card-icons">
         <a href={github} target="_blank" rel="noopener noreferrer">
@@ -41,7 +44,7 @@ const Card = ({
           border: isFollowing ? "1px solid black" : "none",
         }}
         onClick={handleFollow}
-        className="card-button"
+        className={`card-button ${isFollowing ? "following" : ""}`}
       >
         {isFollowing ? "Following" : "Follow"}
       </button>
