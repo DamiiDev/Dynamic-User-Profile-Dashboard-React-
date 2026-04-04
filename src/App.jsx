@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Card from "./components/Card";
+import AddNewUser from "./components/AddNewUser";
+import LoginPage from "./components/LoginPage";
 import image1 from "./assets/profil.jpeg";
 import image2 from "./assets/dammie.jpeg";
 
@@ -38,6 +40,7 @@ const App = () => {
   const [search, setSearch] = useState("");
   const [image, setImage] = useState("");
   const [visibleCard, setVisibleCard] = useState(6);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   //  Add user
   const addUser = () => {
@@ -95,7 +98,7 @@ const App = () => {
         const fetchedUsers = data.map((user) => ({
           id: user.id + 1000,
           name: user.name,
-          role: "User",
+          role: user.role,
           bio: "Fetched from API",
           image: image1,
           github: "#",
@@ -115,9 +118,15 @@ const App = () => {
       user.role.toLowerCase().includes(search.toLowerCase()),
   );
 
+  if (!isLoggedIn) {
+    return <LoginPage setIsLoggedIn={setIsLoggedIn} />;
+  }
+
   return (
     <div className="container">
       <h1>User Dashboard</h1>
+<button onClick={() => setIsLoggedIn(false)} className="logOut-btn">Log Out</button>
+
       {/* 🔍 Search */}
       <input
         type="text"
