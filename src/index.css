@@ -103,6 +103,14 @@ cursor: pointer;
   transition: 0.2s;
 }
 
+.load-btn {
+  margin: 20px auto;
+  padding: 8px 20px;
+  color: gray;
+  border: none;
+  cursor: pointer;
+}
+
 @media (max-width: 500px) {
   .card {
     width: 90%;
