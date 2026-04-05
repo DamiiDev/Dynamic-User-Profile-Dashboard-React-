@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import AddNewUser from "./AddNewUser";
 
 const LoginPage = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [userAdded, setUserAdded] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
@@ -11,8 +13,22 @@ const LoginPage = ({ setIsLoggedIn }) => {
       return;
     }
 
+    if (!email.includes("@") && !email.includes(".")) {
+      alert("Please enter a valid email address");
+      return;
+    }
+
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters long");
+      return;
+    }
+
     // Simulate successful login
     setIsLoggedIn(true);
+
+   
+
+   
   };
 
   return (
@@ -36,7 +52,9 @@ const LoginPage = ({ setIsLoggedIn }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <a href="#">Forgot password?</a>
-        <button type="submit" className="loginButton">Login</button>
+        <button type="submit" className="loginButton">
+          Login
+        </button>
         <p>
           Are you a new user? <a href="#">Sign-Up</a>
         </p>

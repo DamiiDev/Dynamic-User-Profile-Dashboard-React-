@@ -41,41 +41,42 @@ const App = () => {
   const [image, setImage] = useState("");
   const [visibleCard, setVisibleCard] = useState(6);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  
 
-  //  Add user
-  const addUser = () => {
-    if (!name.trim() || !role.trim() || !bio.trim()) return;
+  // //  Add user
+  // const addUser = () => {
+  //   if (!name.trim() || !role.trim() || !bio.trim()) return;
 
-    const newUser = {
-      id: Date.now(),
-      name,
-      role,
-      bio,
-      image: image,
-      github: "#",
-      twitter: "#",
-      linkedln: "#",
-    };
+  //   const newUser = {
+  //     id: Date.now(),
+  //     name,
+  //     role,
+  //     bio,
+  //     image: image,
+  //     github: "#",
+  //     twitter: "#",
+  //     linkedln: "#",
+  //   };
 
-    setUsers((prev) => [...prev, newUser]);
+  //   setUsers((prev) => [...prev, newUser]);
 
-    setName("");
-    setRole("");
-    setBio("");
-    setImage("");
-  };
+  //   setName("");
+  //   setRole("");
+  //   setBio("");
+  //   setImage("");
+  // };
 
-  //  Handle image upload
-  const handleImageUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImage(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  // //  Handle image upload
+  // const handleImageUpload = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       setImage(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
 
   //  Delete user
   const onDelete = (id) => {
@@ -122,10 +123,18 @@ const App = () => {
     return <LoginPage setIsLoggedIn={setIsLoggedIn} />;
   }
 
+  if (isLoggedIn && !userAdded) {
+    return <AddNewUser setUserAdded={setUserAdded} />;
+  }
+
+ 
+
   return (
     <div className="container">
       <h1>User Dashboard</h1>
-<button onClick={() => setIsLoggedIn(false)} className="logOut-btn">Log Out</button>
+      <button onClick={() => setIsLoggedIn(false)} className="logOut-btn">
+        Log Out
+      </button>
 
       {/* 🔍 Search */}
       <input
@@ -136,7 +145,7 @@ const App = () => {
         className="input"
       />
       {/* ➕ Add User */}
-      <div className="form">
+      {/* <div className="form">
         <input
           type="text"
           placeholder="Name"
@@ -168,7 +177,7 @@ const App = () => {
         <button onClick={addUser} className="add-btn">
           Add User
         </button>
-      </div>
+      </div> */}
       {/* 👥 Users */}
       <div className="grid">
         {filteredUsers.length > 0 ? (
