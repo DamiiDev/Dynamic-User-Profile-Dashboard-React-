@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import AddNewUser from "./AddNewUser";
 
-const LoginPage = ({ setIsLoggedIn }) => {
+const LoginPage = ({ setIsLoggedIn, setUsers }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [userAdded, setUserAdded] = useState(false);
+  const [showAddUser, setShowAddUser] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
@@ -13,7 +13,7 @@ const LoginPage = ({ setIsLoggedIn }) => {
       return;
     }
 
-    if (!email.includes("@") && !email.includes(".")) {
+    if (!email.includes("@") || !email.includes(".")) {
       alert("Please enter a valid email address");
       return;
     }
@@ -26,10 +26,17 @@ const LoginPage = ({ setIsLoggedIn }) => {
     // Simulate successful login
     setIsLoggedIn(true);
 
-   
-
-   
+    //show add user form after login
+    setShowAddUser(true);
   };
+  if (showAddUser) {
+    return (
+      <AddNewUser
+        setUsers={setUsers}
+        setUserAdded={() => setShowAddUser(false)}
+      />
+    );
+  }
 
   return (
     <div className="cardForm">

@@ -1,6 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 
-const AddNewUser = ({ setUserAdded }) => {
+const AddNewUser = ({ setUsers, setUserAdded }) => {
+  const [name, setName] = useState("");
+  const [role, setRole] = useState("");
+  const [bio, setBio] = useState("");
+  const [image, setImage] = useState("");
+
+  //  Handle image upload
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImage(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
   //  Add user
   const addUser = () => {
     if (!name.trim() || !role.trim() || !bio.trim()) return;
@@ -16,18 +33,6 @@ const AddNewUser = ({ setUserAdded }) => {
       linkedln: "#",
     };
 
-    //  Handle image upload
-    const handleImageUpload = (e) => {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-          setImage(reader.result);
-        };
-        reader.readAsDataURL(file);
-      }
-    };
-
     setUsers((prev) => [...prev, newUser]);
 
     setName("");
@@ -36,8 +41,6 @@ const AddNewUser = ({ setUserAdded }) => {
     setImage("");
 
     setUserAdded(true);
-
-    
   };
 
   return (

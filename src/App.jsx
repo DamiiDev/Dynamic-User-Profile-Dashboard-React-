@@ -34,13 +34,11 @@ const App = () => {
         ];
   });
 
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [bio, setBio] = useState("");
+  
   const [search, setSearch] = useState("");
-  const [image, setImage] = useState("");
   const [visibleCard, setVisibleCard] = useState(6);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAddUser, setShowAddUser] = useState(false);
   
 
   // //  Add user
@@ -120,13 +118,12 @@ const App = () => {
   );
 
   if (!isLoggedIn) {
-    return <LoginPage setIsLoggedIn={setIsLoggedIn} />;
+    return <LoginPage setIsLoggedIn={setIsLoggedIn} setUsers={setUsers} />;
   }
 
-  if (isLoggedIn && !userAdded) {
-    return <AddNewUser setUserAdded={setUserAdded} />;
-  }
-
+ if (showAddUser) {
+      return <AddNewUser setUsers={setUsers} setUserAdded={() => setShowAddUser(false)} />;
+    }
  
 
   return (
