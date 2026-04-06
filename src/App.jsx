@@ -5,15 +5,20 @@ import LoginPage from "./components/LoginPage";
 import image1 from "./assets/profil.jpeg";
 import image2 from "./assets/dammie.jpeg";
 import UserDashboard from "./components/UserDashboard";
+import LandingPage from "./components/LandingPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userAdded, setUserAdded] = useState(false);
   const [users, setUsers] = useState([]);
+  const [showLandingPage, setShowLandingPage] = useState(true);
+  const [showLogin, setShowLogin] = useState(false);
 
   return (
     <div>
-      {!userAdded ? (
+      {showLandingPage && !showLogin && !userAdded ? (
+        <LandingPage setShowLogin={setShowLogin} setShowLandingPage={setShowLandingPage} />
+      ) : !userAdded ? (
         <AddNewUser
           setUserAdded={setUserAdded}
           setUsers={setUsers}

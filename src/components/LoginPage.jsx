@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import AddNewUser from "./AddNewUser";
 
-const LoginPage = ({ setIsLoggedIn }) => {
+const LoginPage = ({ setIsLoggedIn, setShowAddUser, setShowLogin }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -24,6 +24,11 @@ const LoginPage = ({ setIsLoggedIn }) => {
 
     // Simulate successful login
     setIsLoggedIn(true);
+
+    const handleSignup = () => {
+      setShowAddUser(true);
+      setShowLogin(false);
+    }
 
   };
    

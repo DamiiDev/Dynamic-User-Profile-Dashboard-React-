@@ -224,3 +224,184 @@ label {
   font-size: 16px;
   margin-top: 20px;
 }
+
+/* Landingpage style */
+
+/* Header Styles */
+
+.logo-header {
+  background-color: white;
+  color: rgb(13, 13, 13);
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  display: flex;
+}
+
+.logo1 {
+  color: #258540;
+  font-weight: bold;
+}
+
+.logo2 {
+  color: #5ef4a2;
+  font-weight: bold;
+}
+
+
+/* Navigation Styles */
+
+.signup-login {
+  display: flex;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.login {
+  background-color: transparent;
+  color: #333;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.sign-up {
+  background-color: #258540;
+  color: #fff;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.sign-up a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* Body Content Styles */
+
+.body-content {
+  padding: 20px;
+  background: linear-gradient(135deg, #eff3f7, #d4d6da);
+  min-height: 70vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.page-title {
+  font-size: 36px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 2s ease forwards;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hr-title {
+  width: 200px;
+  margin: 20px auto;
+  border: 1px solid #cbcecb;
+}
+
+.content {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.para {
+  font-size: 16px;
+  margin-top: 20px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+
+/* Buttons Styles */
+
+.get-started {
+  background-color: #258540;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+.learn-more {
+  background-color: transparent;
+  color: #258540;
+  border: 1px solid #258540;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  margin-top: 30px;
+}
+
+
+/* Features Section Styles */
+.features-list {
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  padding: 10px 20px;
+  align-items: center;
+  height: 14vh;
+}
+
+.features {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  align-items: center;
+  font-size: 10px;
+}
+
+.feat1 {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.feat1 img {
+  width: 30px;
+  height: 30px;
+}
+
+/* Footer Styles */
+
+footer {
+  background-color: #fff;
+  color: #fff;
+  text-align: center;
+  padding: 10px 20px;
+  border: 1px solid #e1e4e1;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.footer-link {
+  color: #258540;
+  text-decoration: none;
+}
