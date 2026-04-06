@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import AddNewUser from "./AddNewUser";
 
-const LoginPage = ({ setIsLoggedIn, setUsers }) => {
+const LoginPage = ({ setIsLoggedIn }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [showAddUser, setShowAddUser] = useState(false);
 
   const submit = (e) => {
     e.preventDefault();
@@ -26,17 +25,8 @@ const LoginPage = ({ setIsLoggedIn, setUsers }) => {
     // Simulate successful login
     setIsLoggedIn(true);
 
-    //show add user form after login
-    setShowAddUser(true);
   };
-  if (showAddUser) {
-    return (
-      <AddNewUser
-        setUsers={setUsers}
-        setUserAdded={() => setShowAddUser(false)}
-      />
-    );
-  }
+   
 
   return (
     <div className="cardForm">
