@@ -1,9 +1,12 @@
 import React from "react";
+import {
+  FaConnectdevelop,
+  FaSearch,
+  FaIdBadge,
+  FaUserFriends,
+} from "react-icons/fa";
 
-
-
-const LandingPage = ({setShowLogin}) => {
-  
+const LandingPage = ({ setShowLogin }) => {
   return (
     <div className="landingPage">
       {/* <!-- Header Section --> */}
@@ -15,8 +18,12 @@ const LandingPage = ({setShowLogin}) => {
         </div>
 
         <div className="signup-login">
-          <button onClick={() => setShowLogin(true)} className="login">Login</button>
-          <button onClick={() => setUserAdded(true)} className="sign-up">Sign Up</button>
+          <button onClick={() => setShowLogin(true)} className="login">
+            Login
+          </button>
+          <button onClick={() => setUserAdded(true)} className="sign-up">
+            Sign Up
+          </button>
         </div>
       </header>
 
@@ -39,7 +46,92 @@ const LandingPage = ({setShowLogin}) => {
       </section>
 
       {/* <!-- Features Section --> */}
+      <section>
+        <div className="why">
+          <h2>Why DevTrybe</h2>
+          <div className="features">
+            <div className="feature">
+              <h3>
+                <FaConnectdevelop /> Connect Easily
+              </h3>
+              <p className="feature-description">
+                Follow developers and stay updated with their journey.
+              </p>
+            </div>
+            <div className="feature">
+              <h3>
+                <FaIdBadge /> Showcase your profile
+              </h3>
+              <p className="feature-description">
+                Create a personal dev card with your skills and social links.
+              </p>
+            </div>
+            <div className="feature">
+              <h3>
+                <FaSearch /> Discover Talent
+              </h3>
+              <p className="feature-description">
+                Find developers by skills, roles, or interests.
+              </p>
+            </div>
+            <div className="feature">
+              <h3>
+                <FaUserFriends /> Grow Your Network{" "}
+              </h3>
+              <p className="feature-description">
+                Build meaningful connections in tech.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
+      {/* How it works section */}
+
+      <section>
+        <div className="how-it-works">
+          <h2>Get Started in 3 Simple Steps</h2>
+          <div className="stepByStep">
+            <div className="step">
+              <h3>Create Your Profile</h3>
+              <p className="step-description">
+                Sign up and build your developer identity.
+              </p>
+            </div>
+            <div className="step">
+              <h3>Explore Developers</h3>
+              <p className="step-description">
+                Browse and discover amazing talents.
+              </p>
+            </div>
+            <div className="step">
+              <h3>Connect and Follow</h3>
+              <p className="step-description">
+                Follow developers on all social platform and grow your network.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* devloper card preview section */}
+
+      {/* <section>
+        <div className="card-preview">
+          <h2>Meet Developers on DevTrybe</h2>
+          <div className="card-preview-container">
+            <div className="card-preview-item">
+              <img
+                src="https://randomuser.me/api/portraits/men/75.jpg"
+                alt="Developer 1"
+                className="card-preview-image"
+              />
+              <h3 className="card-preview-name">John Doe</h3>
+              <p className="card-preview-role">Frontend Developer</p>
+            </div>
+          </div>
+        </div>
+      </section> */}
 
       {/* <!-- Footer Section --> */}
 
