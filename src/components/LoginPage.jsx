@@ -52,7 +52,7 @@ const LoginPage = ({ setIsLoggedIn, setShowAddUser, setShowLogin }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
         <a href="#">Forgot password?</a>
-        <button type="submit" className="loginButton">
+        <button type="button" className="loginButton">
           Login
         </button>
         <p>

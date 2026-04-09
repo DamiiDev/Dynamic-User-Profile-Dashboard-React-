@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+
 import Card from "./components/Card";
 import AddNewUser from "./components/AddNewUser";
 import LoginPage from "./components/LoginPage";
@@ -17,7 +19,10 @@ const App = () => {
   return (
     <div>
       {showLandingPage && !showLogin && !userAdded ? (
-        <LandingPage setShowLogin={setShowLogin} setShowLandingPage={setShowLandingPage} />
+        <LandingPage
+          setShowLogin={setShowLogin}
+          setShowLandingPage={setShowLandingPage}
+        />
       ) : !userAdded ? (
         <AddNewUser
           setUserAdded={setUserAdded}
