@@ -229,6 +229,11 @@ label {
 
 /* Header Styles */
 
+.landingPage {
+  flex-wrap: wrap;
+  
+}
+
 .logo-header {
   background-color: white;
   color: rgb(13, 13, 13);
@@ -244,12 +249,12 @@ label {
 }
 
 .logo1 {
-  color: #258540;
+  color: #1a237e;
   font-weight: bold;
 }
 
 .logo2 {
-  color: #5ef4a2;
+  color: #64b5f6;
   font-weight: bold;
 }
 
@@ -264,7 +269,7 @@ label {
 
 .login {
   background-color: transparent;
-  color: #333;
+  color: #1a237e;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
@@ -272,7 +277,7 @@ label {
 }
 
 .sign-up {
-  background-color: #258540;
+  background-color: #1a237e;
   color: #fff;
   border: none;
   padding: 5px 10px;
@@ -289,29 +294,41 @@ label {
 /* Body Content Styles */
 
 .body-content {
-  padding: 20px;
-  background: linear-gradient(135deg, #eff3f7, #d4d6da);
-  min-height: 70vh;
+  height: 100vh;
+  background-image: url('../src/assets/landing3.jpg');
+  background-size: cover;
+  background-position: center;
+  color: #fff;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 70vh;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
 }
 
 .page-title {
-  font-size: 36px;
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  opacity: 0;
-  transform: translateY(30px);
-  animation: fadeUp 2s ease forwards;
+  font-size: clamp(1.6rem, 4vw, 2.5rem);
+  display: inline-block;
+  border-right: 3px solid #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  max-width: 100%;
+  box-sizing: border-box;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  animation: typing 4s steps(33) forwards, blink 0.7s step-end infinite;
 }
 
-@keyframes fadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes typing {
+ from { width: 0; }
+ to { width: 33ch; }
+}
+
+@keyframes blink {
+ 50% { border-color: transparent; }
 }
 
 .hr-title {
@@ -337,7 +354,7 @@ label {
 /* Buttons Styles */
 
 .get-started {
-  background-color: #258540;
+  background-color: #1a237e;
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -349,43 +366,13 @@ label {
 
 .learn-more {
   background-color: transparent;
-  color: #258540;
-  border: 1px solid #258540;
+  color: #1a237e;
+  border: 1px solid #1a237e;
   padding: 10px 20px;
   cursor: pointer;
   border-radius: 5px;
   font-size: 16px;
   margin-top: 30px;
-}
-
-
-/* Features Section Styles */
-.features-list {
-  display: flex;
-  justify-content: center;
-  background: #fff;
-  padding: 10px 20px;
-  align-items: center;
-  height: 14vh;
-}
-
-.features {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  align-items: center;
-  font-size: 10px;
-}
-
-.feat1 {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.feat1 img {
-  width: 30px;
-  height: 30px;
 }
 
 /* Footer Styles */

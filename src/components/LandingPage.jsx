@@ -5,7 +5,7 @@ import React from "react";
 const LandingPage = ({setShowLogin}) => {
   
   return (
-    <div>
+    <div className="landingPage">
       {/* <!-- Header Section --> */}
 
       <header className="logo-header">
@@ -40,24 +40,6 @@ const LandingPage = ({setShowLogin}) => {
 
       {/* <!-- Features Section --> */}
 
-      <section className="features-list">
-        <div className="features">
-          <div className="feat1">
-            <img src="square.png" alt="Feature Icon" />
-            <h2 className="feat">Track Applications</h2>
-          </div>
-
-          <div className="feat1">
-            <img src="approval.png" alt="Feature Icon" />
-            <h2 className="feat">Manage Interviews</h2>
-          </div>
-
-          <div className="feat1">
-            <img src="check.png" alt="Feature Icon" />
-            <h2 className="feat">Stay Organized</h2>
-          </div>
-        </div>
-      </section>
 
       {/* <!-- Footer Section --> */}
 

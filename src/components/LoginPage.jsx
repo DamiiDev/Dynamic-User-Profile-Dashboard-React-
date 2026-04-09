@@ -24,14 +24,12 @@ const LoginPage = ({ setIsLoggedIn, setShowAddUser, setShowLogin }) => {
 
     // Simulate successful login
     setIsLoggedIn(true);
-
-    const handleSignup = () => {
-      setShowAddUser(true);
-      setShowLogin(false);
-    }
-
   };
-   
+
+  const handleSignup = () => {
+    setShowAddUser(true);
+    setShowLogin(false);
+  };
 
   return (
     <div className="cardForm">
@@ -58,7 +56,10 @@ const LoginPage = ({ setIsLoggedIn, setShowAddUser, setShowLogin }) => {
           Login
         </button>
         <p>
-          Are you a new user? <a href="#">Sign-Up</a>
+          Are you a new user?{" "}
+          <button type="button" onClick={handleSignup}>
+            Sign-Up
+          </button>
         </p>
       </form>
     </div>
