@@ -21,11 +21,8 @@ const LandingPage = ({ setShowLogin }) => {
         </div>
 
         <div className="signup-login">
-          <button onClick={() => setShowLogin(true)} className="login">
-            Login
-          </button>
-          <button onClick={() => setUserAdded(true)} className="sign-up">
-            Sign Up
+          <button onClick={() => setShowLogin(true)} className="sign-up">
+            SignUp
           </button>
         </div>
       </header>
@@ -43,8 +40,10 @@ const LandingPage = ({ setShowLogin }) => {
             collaborating, you can expand your professional network, discover
             new opportunities, and grow within the tech community.
           </p>
-          <button className="get-started">Get Started</button>
+          <div className="buttons-container">
+            <button className="get-started">Get Started</button>
           <button className="learn-more">Learn More</button>
+          </div>
         </div>
       </section>
 
