@@ -11,7 +11,7 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-  //  Add user
+  // Add user
   const addUser = (e) => {
     e.preventDefault();
 
@@ -51,10 +51,11 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
       github,
       twitter,
       linkedln,
-    };
+      password,     };
 
     setUsers((prev) => [...prev, newUser]);
 
+    // Clear form
     setName("");
     setRole("");
     setBio("");
@@ -66,15 +67,24 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
     setConfirmPassword("");
 
     setUserAdded(true);
-  };
+    setIsLoggedIn(true);   };
 
-  //  Handle image upload
+  // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
+      // ADDED: File size validation (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Image size must be less than 2MB");
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
+      };
+      reader.onerror = () => { // ADDED: Error handling
+        alert("Error reading file");
       };
       reader.readAsDataURL(file);
     }
@@ -91,42 +101,42 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="addUserInput"
-        />
+          required         />
         <input
           type="text"
-          placeholder="Role"
+          placeholder="Role (e.g. Frontend Developer)"
           value={role}
           onChange={(e) => setRole(e.target.value)}
           className="addUserInput"
-        />
+          required         />
 
         <input
-          type="text"
-          placeholder="GitHub URL"
+          type="url"           placeholder="GitHub URL"
           value={github}
           onChange={(e) => setGithub(e.target.value)}
           className="addUserInput"
-        />
+          required        />
         <input
-          type="text"
+          type="url" 
           placeholder="Twitter URL"
           value={twitter}
           onChange={(e) => setTwitter(e.target.value)}
           className="addUserInput"
-        />
+          required         />
         <input
-          type="text"
-          placeholder="LinkedIn URL"
+          type="url"           placeholder="LinkedIn URL"
           value={linkedln}
           onChange={(e) => setLinkedln(e.target.value)}
           className="addUserInput"
+          required 
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Password (min 6 characters)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="addUserInput"
+          minLength="6"           required 
         />
         <input
           type="password"
@@ -134,6 +144,7 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="addUserInput"
+          required 
         />
 
         <input
@@ -141,18 +152,20 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
           accept="image/*"
           onChange={handleImageUpload}
           className="addUserInput"
+          required 
         />
 
         <textarea
-          type="text"
           placeholder="Bio"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
           className="addUserInput"
+          rows="4" 
+          required 
         />
 
         <button type="submit" className="addUserBtn">
-          Add User
+          Create Account
         </button>
       </form>
     </div>
