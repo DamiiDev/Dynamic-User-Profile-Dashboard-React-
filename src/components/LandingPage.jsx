@@ -43,8 +43,10 @@ const LandingPage = ({ setShowLogin }) => {
             collaborating, you can expand your professional network, discover
             new opportunities, and grow within the tech community.
           </p>
-          <button className="get-started">Get Started</button>
-          <button className="learn-more">Learn More</button>
+          <div className="content-buttons">
+            <button className="get-started">Get Started</button>
+            <button className="learn-more">Learn More</button>
+          </div>
         </div>
       </section>
 
@@ -96,19 +98,25 @@ const LandingPage = ({ setShowLogin }) => {
           <h2>Get Started in 3 Simple Steps</h2>
           <div className="stepByStep">
             <div className="step">
-              <h3><FaUser /> Create Your Profile</h3>
+              <h3>
+                <FaUser /> Create Your Profile
+              </h3>
               <p className="step-description">
                 Sign up and build your developer identity.
               </p>
             </div>
             <div className="step">
-              <h3><FaCode /> Explore Developers</h3>
+              <h3>
+                <FaCode /> Explore Developers
+              </h3>
               <p className="step-description">
                 Browse and discover amazing talents.
               </p>
             </div>
             <div className="step">
-              <h3><FiUserPlus /> Connect and Follow</h3>
+              <h3>
+                <FiUserPlus /> Connect and Follow
+              </h3>
               <p className="step-description">
                 Follow developers on all social platform and grow your network.
               </p>

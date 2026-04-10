@@ -310,6 +310,13 @@ label {
   justify-content: center; */
 }
 
+.content-buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 .page-title {
   font-size: clamp(1.6rem, 4vw, 2.5rem);
   display: inline-block;
@@ -341,6 +348,7 @@ label {
   max-width: 800px;
   margin: 0 auto;
   text-align: center;
+  flex-wrap: wrap;
 }
 
 .para {
@@ -426,6 +434,7 @@ footer {
   border-radius: 20px;
   margin: 20px;
   padding: 20px;
+  
 }
 
 .why h2 {
@@ -470,4 +479,12 @@ footer {
   font-size: 18px;
   font-weight: bold;
   ;
+}
+
+@media (max-width: 600px) {
+  .stepByStep, .features, .content-buttons {
+    grid-template-columns: 1fr;
+  }
+
+
 }
