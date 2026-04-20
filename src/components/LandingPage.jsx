@@ -133,25 +133,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* devloper card preview section */}
-
-      {/* <section>
-        <div className="card-preview">
-          <h2>Meet Developers on DevTrybe</h2>
-          <div className="card-preview-container">
-            <div className="card-preview-item">
-              <img
-                src="https://randomuser.me/api/portraits/men/75.jpg"
-                alt="Developer 1"
-                className="card-preview-image"
-              />
-              <h3 className="card-preview-name">John Doe</h3>
-              <p className="card-preview-role">Frontend Developer</p>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
       {/* <!-- Footer Section --> */}
 
       <footer>

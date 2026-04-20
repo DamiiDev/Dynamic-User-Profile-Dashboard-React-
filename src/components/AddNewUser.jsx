@@ -14,11 +14,16 @@ const AddNewUser = ({ setUserAdded }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+<<<<<<< HEAD
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
   //  Add user
   const addUser = async (e) => {
+=======
+  // Add user
+  const addUser = (e) => {
+>>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
     e.preventDefault();
 
     if (
@@ -49,10 +54,23 @@ const AddNewUser = ({ setUserAdded }) => {
       return;
     }
 
+<<<<<<< HEAD
     if (!email.includes("@") || !email.includes(".")) {
       alert("Please enter a valid email address");
       return;
     }
+=======
+    const newUser = {
+      id: Date.now(),
+      name,
+      role,
+      bio,
+      image,
+      github,
+      twitter,
+      linkedln,
+      password,     };
+>>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
 
     setIsLoading(true);
     try {
@@ -68,6 +86,7 @@ const AddNewUser = ({ setUserAdded }) => {
         linkedln,
       });
 
+<<<<<<< HEAD
       console.log("User registered:", res.data);
 
       setName("");
@@ -98,15 +117,39 @@ const AddNewUser = ({ setUserAdded }) => {
       setIsLoading(false);
     }
   };
+=======
+    // Clear form
+    setName("");
+    setRole("");
+    setBio("");
+    setImage("");
+    setGithub("");
+    setTwitter("");
+    setLinkedln("");
+    setPassword("");
+    setConfirmPassword("");
 
-  //  Handle image upload
+    setUserAdded(true);
+    setIsLoggedIn(true);   };
+>>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
+
+  // Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
 
     if (file) {
+      // ADDED: File size validation (max 2MB)
+      if (file.size > 2 * 1024 * 1024) {
+        alert("Image size must be less than 2MB");
+        return;
+      }
+      
       const reader = new FileReader();
       reader.onloadend = () => {
         setImage(reader.result);
+      };
+      reader.onerror = () => { // ADDED: Error handling
+        alert("Error reading file");
       };
       reader.readAsDataURL(file);
     }
@@ -123,16 +166,17 @@ const AddNewUser = ({ setUserAdded }) => {
           value={name}
           onChange={(e) => setName(e.target.value)}
           className="addUserInput"
-        />
+          required         />
         <input
           type="text"
-          placeholder="Role"
+          placeholder="Role (e.g. Frontend Developer)"
           value={role}
           onChange={(e) => setRole(e.target.value)}
           className="addUserInput"
-        />
+          required         />
 
         <input
+<<<<<<< HEAD
           type="text"
           placeholder="Email"
           value={email}
@@ -143,30 +187,34 @@ const AddNewUser = ({ setUserAdded }) => {
         <input
           type="text"
           placeholder="GitHub URL"
+=======
+          type="url"           placeholder="GitHub URL"
+>>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
           value={github}
           onChange={(e) => setGithub(e.target.value)}
           className="addUserInput"
-        />
+          required        />
         <input
-          type="text"
+          type="url" 
           placeholder="Twitter URL"
           value={twitter}
           onChange={(e) => setTwitter(e.target.value)}
           className="addUserInput"
-        />
+          required         />
         <input
-          type="text"
-          placeholder="LinkedIn URL"
+          type="url"           placeholder="LinkedIn URL"
           value={linkedln}
           onChange={(e) => setLinkedln(e.target.value)}
           className="addUserInput"
+          required 
         />
         <input
           type="password"
-          placeholder="Password"
+          placeholder="Password (min 6 characters)"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           className="addUserInput"
+          minLength="6"           required 
         />
         <input
           type="password"
@@ -174,6 +222,7 @@ const AddNewUser = ({ setUserAdded }) => {
           value={confirmPassword}
           onChange={(e) => setConfirmPassword(e.target.value)}
           className="addUserInput"
+          required 
         />
 
         <input
@@ -181,18 +230,25 @@ const AddNewUser = ({ setUserAdded }) => {
           accept="image/*"
           onChange={handleImageUpload}
           className="addUserInput"
+          required 
         />
 
         <textarea
-          type="text"
           placeholder="Bio"
           value={bio}
           onChange={(e) => setBio(e.target.value)}
           className="addUserInput"
+          rows="4" 
+          required 
         />
 
+<<<<<<< HEAD
         <button type="submit" disabled={isLoading} className="addUserBtn">
           {isLoading ? "Creating Account..." : "Create Account"}
+=======
+        <button type="submit" className="addUserBtn">
+          Create Account
+>>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
         </button>
       </form>
     </div>
