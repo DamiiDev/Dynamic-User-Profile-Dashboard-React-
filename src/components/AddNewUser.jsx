@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "./api";
 
-const AddNewUser = ({ setUserAdded }) => {
+const AddNewUser = ({ setUserAdded, setIsLoggedIn }) => {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
@@ -14,16 +14,11 @@ const AddNewUser = ({ setUserAdded }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
-<<<<<<< HEAD
   const navigate = useNavigate();
 
   const [isLoading, setIsLoading] = useState(false);
-  //  Add user
-  const addUser = async (e) => {
-=======
   // Add user
-  const addUser = (e) => {
->>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
+  const addUser = async (e) => {
     e.preventDefault();
 
     if (
@@ -54,24 +49,6 @@ const AddNewUser = ({ setUserAdded }) => {
       return;
     }
 
-<<<<<<< HEAD
-    if (!email.includes("@") || !email.includes(".")) {
-      alert("Please enter a valid email address");
-      return;
-    }
-=======
-    const newUser = {
-      id: Date.now(),
-      name,
-      role,
-      bio,
-      image,
-      github,
-      twitter,
-      linkedln,
-      password,     };
->>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
-
     setIsLoading(true);
     try {
       const res = await api.post("/auth/register", {
@@ -86,13 +63,10 @@ const AddNewUser = ({ setUserAdded }) => {
         linkedln,
       });
 
-<<<<<<< HEAD
-      console.log("User registered:", res.data);
-
+      // Clear form
       setName("");
       setRole("");
       setBio("");
-      setEmail("");
       setImage("");
       setGithub("");
       setTwitter("");
@@ -101,37 +75,15 @@ const AddNewUser = ({ setUserAdded }) => {
       setConfirmPassword("");
 
       setUserAdded(true);
+      setIsLoggedIn(true);
+    
+    } catch (err) {
+      alert(err.response?.data?.message || "Registration failed");
 
-      navigate("/LoginPage");
-    } catch (error) {
-      console.log("Full error:", error);
-      console.log("Response:", error?.response);
-      console.log("Response data: ", error?.response?.data);
-      console.log("Status:", error?.response?.status);
-      console.log("Message:", error?.message);
-      alert(
-        error?.response?.data?.message ||
-          "Failed to register user. Please try again.",
-      );
     } finally {
       setIsLoading(false);
     }
   };
-=======
-    // Clear form
-    setName("");
-    setRole("");
-    setBio("");
-    setImage("");
-    setGithub("");
-    setTwitter("");
-    setLinkedln("");
-    setPassword("");
-    setConfirmPassword("");
-
-    setUserAdded(true);
-    setIsLoggedIn(true);   };
->>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
 
   // Handle image upload
   const handleImageUpload = (e) => {
@@ -176,20 +128,7 @@ const AddNewUser = ({ setUserAdded }) => {
           required         />
 
         <input
-<<<<<<< HEAD
-          type="text"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          className="addUserInput"
-        />
-
-        <input
-          type="text"
-          placeholder="GitHub URL"
-=======
           type="url"           placeholder="GitHub URL"
->>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
           value={github}
           onChange={(e) => setGithub(e.target.value)}
           className="addUserInput"
@@ -242,13 +181,8 @@ const AddNewUser = ({ setUserAdded }) => {
           required 
         />
 
-<<<<<<< HEAD
-        <button type="submit" disabled={isLoading} className="addUserBtn">
-          {isLoading ? "Creating Account..." : "Create Account"}
-=======
         <button type="submit" className="addUserBtn">
           Create Account
->>>>>>> 91a1ba86e9115d645463009f36dea7222250e0d5
         </button>
       </form>
     </div>
