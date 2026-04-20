@@ -1,45 +1,50 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-
+import ProtectedRoute from "./components/ProtectedRoute";
 import Card from "./components/Card";
 import AddNewUser from "./components/AddNewUser";
 import LoginPage from "./components/LoginPage";
-import image1 from "./assets/profil.jpeg";
-import image2 from "./assets/dammie.jpeg";
 import UserDashboard from "./components/UserDashboard";
 import LandingPage from "./components/LandingPage";
 
 const App = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userAdded, setUserAdded] = useState(false);
-  const [users, setUsers] = useState([]);
-  const [showLandingPage, setShowLandingPage] = useState(true);
-  const [showLogin, setShowLogin] = useState(false);
 
+  //  Load users from localStorage on component mount
+
+  const [users, setUsers] = useState(() => {
+    const storedUsers = localStorage.getItem("users");
+    return storedUsers ? JSON.parse(storedUsers) : [];
+  });
   return (
-    <div>
-      {showLandingPage && !showLogin && !userAdded ? (
-        <LandingPage
-          setShowLogin={setShowLogin}
-          setShowLandingPage={setShowLandingPage}
+    <Router>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route
+          path="/LoginPage"
+          element={<LoginPage setIsLoggedIn={setIsLoggedIn} users={users} />}
         />
-      ) : !userAdded ? (
-        <AddNewUser
-          setUserAdded={setUserAdded}
-          setUsers={setUsers}
-          setIsLoggedIn={setIsLoggedIn}
+        <Route
+          path="/AddNewUser"
+          element={
+            <AddNewUser setUserAdded={setUserAdded} setUsers={setUsers} />
+          }
         />
-      ) : !isLoggedIn ? (
-        <LoginPage setIsLoggedIn={setIsLoggedIn} />
-      ) : (
-        <UserDashboard
-          users={users}
-          setUsers={setUsers}
-          isLoggedIn={isLoggedIn}
-          setIsLoggedIn={setIsLoggedIn}
+        <Route
+          path="/UserDashboard"
+          element={
+            <ProtectedRoute>
+              <UserDashboard
+                users={users}
+                setUsers={setUsers}
+                setIsLoggedIn={setIsLoggedIn}
+              />
+            </ProtectedRoute>
+          }
         />
-      )}
-    </div>
+      </Routes>
+    </Router>
   );
 };
 

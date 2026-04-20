@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   FaConnectdevelop,
   FaSearch,
@@ -9,7 +10,9 @@ import {
 } from "react-icons/fa";
 import { FiUserPlus } from "react-icons/fi";
 
-const LandingPage = ({ setShowLogin }) => {
+const LandingPage = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="landingPage">
       {/* <!-- Header Section --> */}
@@ -21,10 +24,10 @@ const LandingPage = ({ setShowLogin }) => {
         </div>
 
         <div className="signup-login">
-          <button onClick={() => setShowLogin(true)} className="login">
+          <button onClick={() => navigate("/LoginPage")} className="sign-up">
             Login
           </button>
-          <button onClick={() => setUserAdded(true)} className="sign-up">
+          <button onClick={() => navigate("/AddNewUser")} className="login">
             Sign Up
           </button>
         </div>
@@ -44,14 +47,19 @@ const LandingPage = ({ setShowLogin }) => {
             new opportunities, and grow within the tech community.
           </p>
           <div className="content-buttons">
-            <button className="get-started">Get Started</button>
+            <button
+              onClick={() => navigate("/AddNewUser")}
+              className="get-started"
+            >
+              Get Started
+            </button>
             <button className="learn-more">Learn More</button>
           </div>
         </div>
       </section>
 
       {/* <!-- Features Section --> */}
-      <section>
+      <section className="justify-content">
         <div className="why">
           <h2>Why DevTrybe</h2>
           <div className="features">
@@ -81,7 +89,7 @@ const LandingPage = ({ setShowLogin }) => {
             </div>
             <div className="feature">
               <h3>
-                <FaUserFriends /> Grow Your Network{" "}
+                <FaUserFriends /> Grow Your Network
               </h3>
               <p className="feature-description">
                 Build meaningful connections in tech.
@@ -93,7 +101,7 @@ const LandingPage = ({ setShowLogin }) => {
 
       {/* How it works section */}
 
-      <section>
+      <section className="justify-content">
         <div className="how-it-works">
           <h2>Get Started in 3 Simple Steps</h2>
           <div className="stepByStep">

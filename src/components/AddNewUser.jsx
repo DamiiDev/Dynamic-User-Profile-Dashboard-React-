@@ -1,9 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "./api";
 
-const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
+const AddNewUser = ({ setUserAdded }) => {
   const [name, setName] = useState("");
   const [role, setRole] = useState("");
   const [bio, setBio] = useState("");
+  const [email, setEmail] = useState("");
   const [image, setImage] = useState("");
   const [github, setGithub] = useState("");
   const [twitter, setTwitter] = useState("");
@@ -11,8 +14,11 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
   //  Add user
-  const addUser = (e) => {
+  const addUser = async (e) => {
     e.preventDefault();
 
     if (
@@ -22,7 +28,8 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
       !github.trim() ||
       !twitter.trim() ||
       !linkedln.trim() ||
-      !password.trim()
+      !password.trim() ||
+      !email.trim()
     ) {
       alert("Please fill in all fields");
       return;
@@ -42,35 +49,60 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
       return;
     }
 
-    const newUser = {
-      id: Date.now(),
-      name,
-      role,
-      bio,
-      image,
-      github,
-      twitter,
-      linkedln,
-    };
+    if (!email.includes("@") || !email.includes(".")) {
+      alert("Please enter a valid email address");
+      return;
+    }
 
-    setUsers((prev) => [...prev, newUser]);
+    setIsLoading(true);
+    try {
+      const res = await api.post("/auth/register", {
+        name,
+        email,
+        password,
+        role,
+        bio,
+        image,
+        github,
+        twitter,
+        linkedln,
+      });
 
-    setName("");
-    setRole("");
-    setBio("");
-    setImage("");
-    setGithub("");
-    setTwitter("");
-    setLinkedln("");
-    setPassword("");
-    setConfirmPassword("");
+      console.log("User registered:", res.data);
 
-    setUserAdded(true);
+      setName("");
+      setRole("");
+      setBio("");
+      setEmail("");
+      setImage("");
+      setGithub("");
+      setTwitter("");
+      setLinkedln("");
+      setPassword("");
+      setConfirmPassword("");
+
+      setUserAdded(true);
+
+      navigate("/LoginPage");
+    } catch (error) {
+      console.log("Full error:", error);
+      console.log("Response:", error?.response);
+      console.log("Response data: ", error?.response?.data);
+      console.log("Status:", error?.response?.status);
+      console.log("Message:", error?.message);
+      alert(
+        error?.response?.data?.message ||
+          "Failed to register user. Please try again.",
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   //  Handle image upload
   const handleImageUpload = (e) => {
     const file = e.target.files[0];
+
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -97,6 +129,14 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
           placeholder="Role"
           value={role}
           onChange={(e) => setRole(e.target.value)}
+          className="addUserInput"
+        />
+
+        <input
+          type="text"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
           className="addUserInput"
         />
 
@@ -151,8 +191,8 @@ const AddNewUser = ({ setUsers, setUserAdded, setIsLoggedIn }) => {
           className="addUserInput"
         />
 
-        <button type="submit" className="addUserBtn">
-          Add User
+        <button type="submit" disabled={isLoading} className="addUserBtn">
+          {isLoading ? "Creating Account..." : "Create Account"}
         </button>
       </form>
     </div>
