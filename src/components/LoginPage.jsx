@@ -1,62 +1,59 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import api from "./api";
 
 const LoginPage = ({ setIsLoggedIn, users }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const Navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
-  const submit = async (e) => {
+  const submit = (e) => {
     e.preventDefault();
+    setError("");
 
-      if (!email.trim() || !password.trim()) {
-        alert("Please fill in all fields");
-        return;
-      }
+    if (!email.trim() || !password.trim()) {
+      setError("Please fill in all fields");
+      return;
+    }
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      alert("Please enter a valid email address");
+      setError("Please enter a valid email address");
       return;
     }
 
     if (password.length < 6) {
-      alert("Password must be at least 6 characters long");
+      setError("Password must be at least 6 characters long");
       return;
     }
 
-  
-    try {
-      const res = await api.post("/auth/login", {
-        email,
-        password,
-      });
+    setIsLoading(true);
 
-      // Store token and user data in localStorage
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+    const user = users.find(
+      (u) => u.email === email && u.password === password,
+    );
 
-      // Simulate successful login
-      setIsLoggedIn(true);
-
-      // Clear form fields
-      setEmail("");
-      setPassword("");
-
-
-      // Navigate to user dashboard
-      Navigate("/UserDashboard");
-    } catch (error) {
-      console.log("Full error:", error);
-      console.log("Response data:", error.response?.data);
-      console.log("Status:", error.response?.status);
-      alert("invalid email or password");
+    if (!user) {
+      setError("Invalid email or password");
+      setIsLoading(false);
+      return;
     }
+
+    localStorage.setItem("user", JSON.stringify(user));
+    setIsLoggedIn(true);
+    setEmail("");
+    setPassword("");
+    setIsLoading(false);
+    navigate("/UserDashboard");
+  };
+
+  const handleForgotPassword = () => {
+    alert("Feature coming soon...");
   };
 
   const handleSignup = () => {
-    Navigate("/AddNewUser");
+    navigate("/AddNewUser");
   };
 
   return (
@@ -79,12 +76,18 @@ const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           value={password}
           onChange={(e) => setPassword(e.target.value)}
         />
-        <a href="#">Forgot password?</a>
-        <button type="submit" className="loginButton">
-          Login
+        <button
+          type="button"
+          onClick={handleForgotPassword}
+          className="forgot-btn"
+        >
+          Forgot password?
+        </button>
+        <button type="submit" className="loginButton" disabled={isLoading}>
+          {isLoading ? "Loading..." : "Login"}
         </button>
         <p>
-          Are you a new user?{" "}
+          Are you a new user?
           <button type="button" onClick={handleSignup} className="sign-up">
             Sign-Up
           </button>

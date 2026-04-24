@@ -101,6 +101,21 @@ cursor: pointer;
   color: #007bff;
   font-size: 20px;
   transition: 0.2s;
+  cursor: pointer;
+}
+
+.view-profile {
+  margin-top: 10px;
+  padding: 8px 8px;
+  border: 1px solid #cbcecb;
+  background: white;
+  color: black;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.view-profile:hover {
+  background: #cbcecb;
 }
 
 .load-btn {

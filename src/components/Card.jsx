@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
-
+import { useNavigate } from "react-router-dom";
 
 const Card = ({
   name,
@@ -10,13 +10,25 @@ const Card = ({
   github,
   twitter,
   linkedln,
+  username,
   onDelete,
 }) => {
+  const navigate = useNavigate();
   const [isFollowing, setIsFollowing] = useState(false);
 
+  const handleViewProfile = (e) => {
+    e.stopPropagation();
+    navigate(`/profile/${username}`);
+  };
 
-  const handleFollow = () => {
+  const handleFollow = (e) => {
+    e.stopPropagation();
     setIsFollowing((prev) => !prev);
+  };
+
+  const handleDelete = (e) => {
+    e.stopPropagation();
+    onDelete();
   };
 
   return (
@@ -27,16 +39,36 @@ const Card = ({
       <p className="card-bio">{bio}</p>
 
       <div className="card-icons">
-        <a href={github} target="_blank" rel="noopener noreferrer">
+        <a
+          href={github}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
           <FaGithub />
         </a>
-        <a href={twitter} target="_blank" rel="noopener noreferrer">
+        <a
+          href={twitter}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
           <FaTwitter />
         </a>
-        <a href={linkedln} target="_blank" rel="noopener noreferrer">
+        <a
+          href={linkedln}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={(e) => e.stopPropagation()}
+        >
           <FaLinkedin />
         </a>
       </div>
+
+      <button onClick={handleViewProfile} className="view-profile">
+        View Profile
+      </button>
+
       <button
         style={{
           backgroundColor: isFollowing ? "white" : "black",
@@ -49,7 +81,7 @@ const Card = ({
         {isFollowing ? "Following" : "Follow"}
       </button>
       <button
-        onClick={onDelete}
+        onClick={handleDelete}
         style={{
           marginTop: "10px",
           padding: "8px 15px",

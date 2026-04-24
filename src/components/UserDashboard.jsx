@@ -1,69 +1,47 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Card from "./Card";
-import api from "./api";
 
-const UserDashboard = ({ setIsLoggedIn }) => {
+const UserDashboard = ({ users, setUsers, setIsLoggedIn }) => {
   const navigate = useNavigate();
 
   const [search, setSearch] = useState("");
   const [visibleCard, setVisibleCard] = useState(6);
   const [user, setUser] = useState(null);
   const [allUsers, setAllUsers] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [fetchError, setFetchError] = useState("");
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const token = localStorage.getItem("token");
-
-        const res = await api.get("/users/profile", {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-
-        setUser(res.data);
-      } catch (error) {
-        console.log(error.response?.data || error.message);
-        navigate("/LoginPage");
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
+    if (users.length === 0) {
+      setFetchError("No users found");
+    }
+    setAllUsers(users);
+  }, [users]);
+      
   useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const res = await api.get("/users");
-        setAllUsers(res.data);
-      } catch (error) {
-        console.log(error.response?.data || error.message);
-      }
-    };
-    fetchUsers();
-  }, []);
+    const storedUser = localStorage.getItem("user");
+    if (!storedUser) {
+      navigate("/LoginPage");
+      return;
+    }
+    setUser(JSON.parse(storedUser));
+  }, [navigate]);
 
   //  Delete user
-  const onDelete = async (id) => {
-    try {
-      await api.delete(`/users/${id}`);
-      setAllUsers((prev) => prev.filter((user) => user._id !== id));
-    } catch (error) {
-      console.log(error.response?.data || error.message);
-    }
+  const onDelete = (id) => {
+    setUsers((prev) => prev.filter((u) => u.id !== id));
+    setAllUsers((prev) => prev.filter((u) => u.id !== id));
   };
-
   //  Filter users
   const filteredUsers = allUsers.filter(
     (user) =>
       user.name.toLowerCase().includes(search.toLowerCase()) ||
-      user.role?.toLowerCase().includes(search.toLowerCase()) ||
-      "",
+      user.role?.toLowerCase().includes(search.toLowerCase()),
   );
   const handleLogout = () => {
-    localStorage.removeItem("token");
     localStorage.removeItem("user");
+    setIsLoggedIn(false);
     navigate("/LoginPage");
   };
 
@@ -86,22 +64,30 @@ const UserDashboard = ({ setIsLoggedIn }) => {
 
         {/* 👥 Users */}
         <div className="grid">
-          {filteredUsers.length > 0 ? (
-            filteredUsers
-              .slice(0, visibleCard)
-              .map((user) => (
+          {isLoading ? (
+            <p>Loading...</p>
+          ) : fetchError ? (
+            <p className="error-message">{fetchError}</p>
+          ) : filteredUsers.length > 0 ? (
+            filteredUsers.slice(0, visibleCard).map((user) => (
+              <div
+                key={user.id}
+                onClick={() => navigate(`/profile/${user.username}`)}
+                className="cursor-pointer"
+              >
                 <Card
-                  key={user._id}
                   name={user.name}
                   role={user.role}
                   bio={user.bio}
                   image={user.image}
                   github={user.github}
                   twitter={user.twitter}
-                  linkedln={user.linkedln}
-                  onDelete={() => onDelete(user._id)}
+                  username={user.username}
+                  linkedin={user.linkedin}
+                  onDelete={() => onDelete(user.id)}
                 />
-              ))
+              </div>
+            ))
           ) : (
             <p>No users found</p>
           )}
