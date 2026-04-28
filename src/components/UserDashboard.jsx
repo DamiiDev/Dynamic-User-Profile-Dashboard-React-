@@ -18,7 +18,7 @@ const UserDashboard = ({ users, setUsers, setIsLoggedIn }) => {
     }
     setAllUsers(users);
   }, [users]);
-      
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (!storedUser) {
@@ -48,10 +48,13 @@ const UserDashboard = ({ users, setUsers, setIsLoggedIn }) => {
   return (
     <div>
       <div className="container">
-        <h1>User Dashboard</h1>
-        <button onClick={handleLogout} className="logOut-btn">
-          Log Out
-        </button>
+        <div className="dashboard-nav">
+          <h1>User Dashboard</h1>
+
+          <button className="logout-btn" onClick={handleLogout}>
+            Log Out
+          </button>
+        </div>
 
         {/* 🔍 Search */}
         <input
@@ -59,7 +62,7 @@ const UserDashboard = ({ users, setUsers, setIsLoggedIn }) => {
           placeholder="Search users..."
           value={search}
           onChange={(e) => setSearch(e.target.value)}
-          className="input"
+          className="dashboard-input"
         />
 
         {/* 👥 Users */}

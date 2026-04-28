@@ -1,3 +1,7 @@
+@import "tailwindcss";
+
+
+
 * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
 
 body {
@@ -614,5 +618,49 @@ footer {
 
   }
 
+
+}
+
+/* User dashboard styles */
+
+.logout-btn {
+  background: #fff;
+  color: #000;
+  padding: 2px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 2px solid #695e5e;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.logout-btn:hover {
+  background: #5a5656;
+}
+
+.dashboard-input {
+  border: #695e5e;
+  padding: 3px;
+  background: #d4cece;
+  border-radius: 8px;
+  border: 2px solid #695e5e;
+  font-size: 12px;
+  margin-bottom: 30px;
+}
+
+.dashboard-nav h1 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.dashboard-nav {
+  position: relative;
+}
+.dashboard-nav button {
+  position: absolute;
+  top: 0;
+  right: 0;
 
 }

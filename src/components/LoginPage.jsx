@@ -59,7 +59,12 @@ const LoginPage = ({ setIsLoggedIn, users }) => {
   return (
     <div className="cardForm">
       <form className="loginForm" onSubmit={submit}>
-        <h2 className="header">Login In</h2>
+        <h2 className="header">Login</h2>
+        {error && (
+          <p className="text-red-500 text-sm mt-2 p-2">
+            {error}
+          </p>
+        )}
         <label htmlFor="email">Email:</label>
         <input
           type="email"
